@@ -1,0 +1,161 @@
+/* GENERAL */ 
+* {
+    margin: 0;
+    padding: 0;
+}
+body{
+    background-color: lightcyan;
+    overflow-y: scroll;
+}
+
+/* FLEX SETTINGS */
+.flex-column{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.flex-row{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.flex-wrapped-all-center{
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+
+/* DESIGN SETTINGS */
+.container-design{
+    background-color: lightslategray;
+    border: 5px solid black;
+    border-radius: 10px;
+}
+
+/* HEADER */
+header{
+    height: 220px;
+    width: 100%;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    background-color: lightsteelblue;
+}
+
+/* ABOUT */
+#about {
+    margin: 0% 15% 0% 15%;
+    padding: 0.2%;
+}
+#about #pfpdiv {
+    align-self: center;
+}
+#about #details {
+    flex-grow: 1;
+}
+#details #personal-data {
+    justify-content: space-between;
+}
+#details #personal-data #left {
+    align-items: flex-end;
+    gap: 3px;
+}
+#details > #personal-data > #left > #name {
+    font-size: x-large;
+}
+#details > #personal-data > #dob {
+    align-self: flex-end;
+    font-size: large;
+}
+
+/* NAV BAR */
+nav {
+    justify-content: space-evenly;
+
+    margin: 0% 20% 0% 20%;
+    padding: 0.2%;
+}
+nav > div {
+    width: 50%;
+    text-align: center;
+    font-size: large;
+}
+nav a,
+nav a:visited,
+nav a:active {
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+
+    color: black;
+    text-decoration: none;
+    border-radius: 10px;
+}
+
+/* CONTENT */
+#content {
+    margin: 250px 10% 80px 10%;
+    padding: 0.2%;
+}
+#content .friend {
+    width: 35%;
+    justify-content: space-between;
+    align-items: center;
+    
+    margin: 5px;
+    padding: 5px;
+    background-color: cadetblue;
+    border: 2px solid black;
+    border-radius: 7px;
+}
+#picturelist{
+    padding: 0 10% 0 10%;
+}
+/* FOOTER */
+footer{
+    align-items: center;
+    justify-content: space-around;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    
+    background-color: lightsteelblue;
+}
+footer div{
+    background-color: lightgreen;
+    padding: 10px 5% 10px 5%;
+    border-radius: 5px;
+}
+footer .mail:hover{
+    color: blue;
+    transition: 200ms;
+}
+
+/* EMAILS */
+#email{
+    margin: 3px 0 3px 0;
+}
+#email>.mail:hover,
+#content .mail:hover,
+nav a:hover{
+    color: blue;
+    background-color: aqua;
+    transition: 800ms;
+}
+.mail,
+.mail:visited,
+.mail:active {
+    color: black;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 10px;
+}
+#email>.mail,
+#email>.mail:visited,
+#email>.mail:active {
+    color: black;
+    text-decoration: none;
+    padding: 3px;
+    border-radius: 4px;
+}
