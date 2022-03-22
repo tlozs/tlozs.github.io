@@ -7,6 +7,28 @@ body{
     background-color: lightcyan;
     overflow-y: scroll;
 }
+#refresh{
+    height: 60px;
+    width: 60px;
+    position: fixed;
+    top: 1%;
+    left: 1%;
+    z-index: 1;
+    
+    cursor: pointer;
+}
+#refresh:hover{
+    color: blue;
+    background-color: aqua;
+}
+#refresh img{
+    height: 50px;
+    width: 50px;
+}
+#refresh img:hover{
+    transition: 800ms;
+    transform: rotate(180deg);
+}
 
 /* FLEX SETTINGS */
 .flex-column{
@@ -138,7 +160,8 @@ footer .mail:hover{
 }
 #email>.mail:hover,
 #content .mail:hover,
-nav a:hover{
+nav a:hover,
+#refresh:hover{
     color: blue;
     background-color: aqua;
     transition: 800ms;
