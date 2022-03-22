@@ -101,16 +101,8 @@ nav > div {
     width: 50%;
     text-align: center;
     font-size: large;
-}
-nav a,
-nav a:visited,
-nav a:active {
-    display: inline-block;
-    height: 100%;
-    width: 100%;
-
-    color: black;
-    text-decoration: none;
+    
+    cursor: pointer;
     border-radius: 10px;
 }
 
@@ -160,7 +152,7 @@ footer .mail:hover{
 }
 #email>.mail:hover,
 #content .mail:hover,
-nav a:hover,
+nav div:hover,
 #refresh:hover{
     color: blue;
     background-color: aqua;
