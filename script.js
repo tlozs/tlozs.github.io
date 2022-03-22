@@ -1,12 +1,44 @@
 document.addEventListener('DOMContentLoaded', main)
+
+// friends and picturecontent is needed because we don't want the page to regenerate the lists all the time only if it wasn't generated yet
 let pictureContent = '';
 let friendsContent = '';
-let picsActive = false;
 
-async function main(){
+// this is needed to avoid a bug of incorrect content shown when clicking on the friends tab but switching back to pics before the friends are loaded
+let friendsActive;
+
+// for ease of use
+let loadingGIF = '<img src="src/loading.gif" alt="Loading" class="loading">';
+
+
+function main(){
+    loadData();
+
+    // after everything is loaded we enable the reload button
+    document.querySelector('#reload').addEventListener('click', loadData);
+}
+
+async function loadData(){
+    
+    // erase the current content
+
+    pictureContent = '';
+    friendsContent = '';
+
+    // set the loading gifs
+
+    let aktdiv = document.querySelector('#pfpdiv>div');
+    aktdiv.innerHTML = loadingGIF;
+
+    aktdiv = document.querySelector('#content>div');
+    aktdiv.innerHTML = loadingGIF;
+
+
+    // load the header data
+
     let szotar = (await olvaso_fetch('https://randomuser.me/api/')).results[0];
     
-    let aktdiv = document.querySelector('#pfpdiv');
+    aktdiv = document.querySelector('#pfpdiv>div');
     aktdiv.innerHTML = '<img src="' + szotar.picture.large + '" alt="pfp" id="pfp" />';
     
     aktdiv = document.querySelector('#name');
@@ -31,72 +63,94 @@ async function main(){
     aktdiv = document.querySelector('#nat');
     aktdiv.innerHTML='<img src="https://flagcdn.com/h24/' + szotar.nat.toLowerCase() + '.png" alt="Flag"></img>';
     
-    await generatePics();
+    // load the pictures
 
+    
+    // only enable the button functionality after the pics are loaded in
+    
     aktdiv = document.querySelector('#photos');
-    aktdiv.innerHTML = '<a href="#">photos</a>';
-    
+    aktdiv.innerHTML = '<div>photos</div>';
     aktdiv = document.querySelector('#friends');
-    aktdiv.innerHTML = '<a href="#">friends</a>';
+    aktdiv.innerHTML = '<div>friends</div>';
     
-    document.querySelector('#friends>a').addEventListener('click', generateFriends);
-    document.querySelector('#photos>a').addEventListener('click', generatePics);
+    document.querySelector('#friends>div').addEventListener('click', generateFriends);
+    document.querySelector('#photos>div').addEventListener('click', generatePics);
+    
+    
+    
+    await generatePics();
 }
 
-async function generateFriends(){
-    picsActive = false;
-    let content = document.querySelector('#content');
-    if (friendsContent == '') {
-        content.innerHTML = '<div class="flex-wrapped-all-center flex-row"> <img src="https://i.stack.imgur.com/MnyxU.gif" alt="Loading"></div>';
 
-        let friends = '<div id="friendlist" class="flex-row flex-wrapped-all-center">';
+
+
+async function generateFriends(){
+    friendsActive = true;
+
+    let content = document.querySelector('#content');
+    
+    if (friendsContent == '') {
+
+        // set it to a loading gif till the content is properly loaded
+
+        content.innerHTML = '<div class="flex-wrapped-all-center flex-row">' + loadingGIF + '</div>';
+
+        // build up the friendlist's content
+
+        friendsContent = '<div id="friendlist" class="flex-row flex-wrapped-all-center">';
         let friendNum = getRndInteger(4,35);
 
         for (let i = 0; i < friendNum; i++) {
             
             let candidate = (await olvaso_fetch('https://randomuser.me/api/')).results[0];
         
-            friends += '<div class="friend flex-row">';
+            friendsContent += '<div class="friend flex-row">';
             
-                friends += '<div>';
-                friends += '<img src="' + candidate.picture.thumbnail + '" alt="Thumbnail"></img>';
-                friends += '</div>';
+                friendsContent += '<div>';
+                friendsContent += '<img src="' + candidate.picture.thumbnail + '" alt="Thumbnail"></img>';
+                friendsContent += '</div>';
     
-                friends += '<div>';
-                friends += candidate.name.first + " " + candidate.name.last;
-                friends += '</div>';
+                friendsContent += '<div>';
+                friendsContent += candidate.name.first + " " + candidate.name.last;
+                friendsContent += '</div>';
     
-                friends += '<div>';
-                friends += '<a href="mailto:' + candidate.email + '" class="mail">' + candidate.email + '</a>';
-                friends += '</div>';
+                friendsContent += '<div>';
+                friendsContent += '<a href="mailto:' + candidate.email + '" class="mail">' + candidate.email + '</a>';
+                friendsContent += '</div>';
             
-            friends += '</div>';
+            friendsContent += '</div>';
         }
-        friends += '</div>';
-        friendsContent = friends;
+        friendsContent += '</div>';
     }
-    if (!picsActive) {
+    if (friendsActive) {
         content.innerHTML = friendsContent;
     }
 }
 
 async function generatePics(){
-    picsActive = true;
+    friendsActive = false;
+
     let content = document.querySelector('#content');
+
     if (pictureContent == '') {
-        content.innerHTML = '<div class="flex-wrapped-all-center flex-row"> <img src="https://i.stack.imgur.com/MnyxU.gif" alt="Loading"></div>';
+
+        // set it to a loading gif till the content is properly loaded
+
+        content.innerHTML = '<div class="flex-wrapped-all-center flex-row">' + loadingGIF + '</div>';
         
-        let pictures = '<div id="picturelist" class="flex-row flex-wrapped-all-center">';
+        // build up the picturelist's content
+
+        pictureContent = '<div id="picturelist" class="flex-row flex-wrapped-all-center">';
         let picNum = getRndInteger(4,35);
 
         for (let i = 0; i < picNum; i++) {
-            pictures +='<img src="' + (await fetch('https://picsum.photos/200')).url + '" alt="Picture"></img>';
+            pictureContent +='<img src="' + (await fetch('https://picsum.photos/200')).url + '" alt="Picture"></img>';
         }
-
-        pictures += '</div>';
-        pictureContent = pictures;
+        pictureContent += '</div>';
     }
-    content.innerHTML = pictureContent;
+    if(!friendsActive){
+        content.innerHTML = pictureContent;
+    }
 }
 
 function getRndInteger(min, max) {
