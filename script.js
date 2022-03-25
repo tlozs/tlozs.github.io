@@ -39,7 +39,7 @@ function ageDependency(ageNumber){
     if(ageNumber == 69){
         result += '(nice) ';
     }
-    
+
     return result;
 }
 
@@ -131,7 +131,7 @@ async function loadData(){
     aktdiv.innerHTML = 'email: <a href="mailto:' + szotar.email + '" class="mail">' + szotar.email + '</a>';
     
     aktdiv = document.querySelector('#bio');
-    aktdiv.innerHTML = 'I am ' + szotar.name.first + " " + szotar.name.last + ageDependency(69) + ' years old ' + (szotar.gender == 'male' ? 'man' : 'lady') +
+    aktdiv.innerHTML = 'I am ' + szotar.name.first + " " + szotar.name.last + ageDependency(szotar.dob.age) + ' years old ' + (szotar.gender == 'male' ? 'man' : 'lady') +
     ' from ' + szotar.location.city + ' in ' + szotar.location.state + ', ' + szotar.location.country + '.';
     
     aktdiv = document.querySelector('#mobile');
