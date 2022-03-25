@@ -24,9 +24,27 @@ function initializeValues(){
 // for ease of use
 let loadingGIF = '<img src="src/loading.gif" alt="Loading" class="loading">';
 
+function setActiveStatus(){
+    let picsButton = document.querySelector('#photos');
+    let friendsButton = document.querySelector('#friends');
+    
+    if(friendsActive){
+        picsButton.classList.remove('active');
+        friendsButton.classList.add('active');
+    }
+    else{
+        picsButton.classList.add('active');
+        friendsButton.classList.remove('active');
+    }
+}
+
 function main(){
+    // set the emphasis for the tab change buttons
+    setActiveStatus();
+    
+
     // enable button functionality, they are usable and properly functional while the data is on load
-    aktdiv = document.querySelector('#photos');
+    let aktdiv = document.querySelector('#photos');
     aktdiv.innerHTML = '<div>photos</div>';
     
     aktdiv = document.querySelector('#friends');
@@ -125,6 +143,9 @@ function showFriends(){
     // switching through tabs is only available with buttons which call the corresponding show function so only here should we set the toggle
     friendsActive = true;
 
+    // set the emphasis for the tab change buttons
+    setActiveStatus();
+
     let content = document.querySelector('#content');
     
     // we only want to modify the content value if still this tab is loaded
@@ -142,6 +163,9 @@ function showFriends(){
 function showPics(){
     // switching through tabs is only available with buttons which call the corresponding show function so only here should we set the toggle
     friendsActive = false;
+
+    // set the emphasis for the tab change buttons
+    setActiveStatus();
 
     let content = document.querySelector('#content');
     
