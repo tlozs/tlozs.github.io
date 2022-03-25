@@ -5,7 +5,12 @@ let pictureContent = '';
 let friendsContent = '';
 
 // this is needed to avoid a bug of incorrect content shown when clicking on the friends tab but switching back to pics before the friends are loaded
-let friendsActive;
+let friendsActive = false;
+
+// they are needed to avoid some other unwanted behaviors
+let pictureLoaded = false;
+let friendsLoaded = false;
+
 
 // for ease of use
 let loadingGIF = '<img src="src/loading.gif" alt="Loading" class="loading">';
@@ -20,10 +25,12 @@ function main(){
 
 async function loadData(){
     
-    // erase the current content
+    // erase the current content and loaded states
 
     pictureContent = '';
     friendsContent = '';
+    pictureLoaded = false;
+    friendsLoaded = false;
 
     // set the loading gifs
 
@@ -63,43 +70,76 @@ async function loadData(){
     aktdiv = document.querySelector('#nat');
     aktdiv.innerHTML='<img src="https://flagcdn.com/h24/' + szotar.nat.toLowerCase() + '.png" alt="Flag"></img>';
     
-    // load the pictures
+    // load the pictures and show them
 
     
-    // only enable the button functionality after the pics are loaded in
-    
+    // enable button functionality
     aktdiv = document.querySelector('#photos');
     aktdiv.innerHTML = '<div>photos</div>';
+    
     aktdiv = document.querySelector('#friends');
     aktdiv.innerHTML = '<div>friends</div>';
     
-    document.querySelector('#friends>div').addEventListener('click', generateFriends);
-    document.querySelector('#photos>div').addEventListener('click', generatePics);
+    document.querySelector('#photos>div').addEventListener('click', showPics);
+    document.querySelector('#friends>div').addEventListener('click', showFriends);
     
-    
-    
+    // load friends and enable it's functionality
     await generatePics();
+    
+    await generateFriends();
+    
+
+
+}
+
+async function showFriends(){
+    friendsActive = true;
+    await generateFriends();
+
+    let content = document.querySelector('#content');
+    if (friendsActive){
+        if (friendsLoaded) {
+            content.innerHTML = friendsContent;
+        }
+        else{
+            content.innerHTML = '<div class="flex-wrapped-all-center flex-row">' + loadingGIF + '</div>';
+        }
+    }
+}
+async function showPics(){
+    friendsActive = false;
+    await generatePics();
+    
+    let content = document.querySelector('#content');
+    if (!friendsActive){
+        if (pictureLoaded) {
+            content.innerHTML = pictureContent;
+        }
+        else{
+            content.innerHTML = '<div class="flex-wrapped-all-center flex-row">' + loadingGIF + '</div>';
+        }
+    }
 }
 
 
-
-
 async function generateFriends(){
-    friendsActive = true;
-
-    let content = document.querySelector('#content');
     
     if (friendsContent == '') {
-
-        // set it to a loading gif till the content is properly loaded
-
-        content.innerHTML = '<div class="flex-wrapped-all-center flex-row">' + loadingGIF + '</div>';
-
+    
+        let content = document.querySelector('#content');
+        if(friendsActive){
+            
+            // set it to a loading gif till the content is properly loaded
+        
+            content.innerHTML = '<div class="flex-wrapped-all-center flex-row">' + loadingGIF + '</div>';
+        }
+    
         // build up the friendlist's content
-
+    
         friendsContent = '<div id="friendlist" class="flex-row flex-wrapped-all-center">';
         let friendNum = getRndInteger(4,35);
-
+        //let friendNum = 4;
+    
         for (let i = 0; i < friendNum; i++) {
             
             let candidate = (await olvaso_fetch('https://randomuser.me/api/')).results[0];
@@ -121,35 +161,41 @@ async function generateFriends(){
             friendsContent += '</div>';
         }
         friendsContent += '</div>';
-    }
-    if (friendsActive) {
-        content.innerHTML = friendsContent;
+        
+        friendsLoaded = true;
+        if (friendsActive) {
+            content.innerHTML = friendsContent;
+        }
     }
 }
 
 async function generatePics(){
-    friendsActive = false;
-
-    let content = document.querySelector('#content');
-
     if (pictureContent == '') {
-
-        // set it to a loading gif till the content is properly loaded
-
-        content.innerHTML = '<div class="flex-wrapped-all-center flex-row">' + loadingGIF + '</div>';
+        
+        let content = document.querySelector('#content');
+        if(!friendsActive){
+            
+            // set it to a loading gif till the content is properly loaded
+        
+            content.innerHTML = '<div class="flex-wrapped-all-center flex-row">' + loadingGIF + '</div>';
+        }
         
         // build up the picturelist's content
-
+    
         pictureContent = '<div id="picturelist" class="flex-row flex-wrapped-all-center">';
         let picNum = getRndInteger(4,35);
-
+        //let picNum = 100;
+    
         for (let i = 0; i < picNum; i++) {
             pictureContent +='<img src="' + (await fetch('https://picsum.photos/200')).url + '" alt="Picture"></img>';
         }
         pictureContent += '</div>';
-    }
-    if(!friendsActive){
-        content.innerHTML = pictureContent;
+
+        pictureLoaded = true;
+
+        if (!friendsActive) {
+            content.innerHTML = pictureContent;
+        }
     }
 }
 
