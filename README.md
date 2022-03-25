@@ -1,6 +1,6 @@
 site: https://gaalzsolt.github.io/
 
-Igen szórakoztató volt a feladaton dolgozni, bár nem mondom, lehet kicsit túl sokat is dolgoztam vele, de a végeredményt látva mindenképp elégedett vagyok a munkával, megérte a bele fektetett energiát. (a projekten való munka másik fele ezen a helyen található: https://github.com/GaalZsolt/API csak félúton átköltöztem az új repo-ba hosztoláshoz)
+Igen szórakoztató volt a feladaton dolgozni, bár nem mondom, lehet kicsit túl sokat is dolgoztam vele, de a végeredményt látva mindenképp elégedett vagyok a munkával, megérte a belefektetett energiát. (a projekten való munka másik fele ezen a helyen található: https://github.com/GaalZsolt/API csak félúton átköltöztem az új repo-ba hosztoláshoz)
 
 A projektben 3 API-t is felhasználunk: 
 1. https://randomuser.me/api/ - ez adja a felhasználó személyes adatait
