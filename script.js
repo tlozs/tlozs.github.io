@@ -21,6 +21,28 @@ function initializeValues(){
     friendsLoaded = false;
 }
 
+// credit to: Bence
+function ageDependency(ageNumber){
+    // filter out the 'a' or 'an' difference with numbers
+    let result = ', a';
+
+    // numbers that require 'an'
+    let nNums = [8,11,18,81,82,83,84,85,86,87,88,89];
+
+    if (nNums.includes(ageNumber)) {
+        result += 'n';
+    }
+
+    result += ' ' + ageNumber + ' ';
+
+    // some funny stuff
+    if(ageNumber == 69){
+        result += '(nice) ';
+    }
+    
+    return result;
+}
+
 // for ease of use
 let loadingGIF = '<img src="src/loading.gif" alt="Loading" class="loading">';
 
@@ -109,7 +131,7 @@ async function loadData(){
     aktdiv.innerHTML = 'email: <a href="mailto:' + szotar.email + '" class="mail">' + szotar.email + '</a>';
     
     aktdiv = document.querySelector('#bio');
-    aktdiv.innerHTML = 'I am ' + szotar.name.first + " " + szotar.name.last + ', a(n) ' + szotar.dob.age + ' years old ' + (szotar.gender == 'male' ? 'man' : 'lady') +
+    aktdiv.innerHTML = 'I am ' + szotar.name.first + " " + szotar.name.last + ageDependency(69) + ' years old ' + (szotar.gender == 'male' ? 'man' : 'lady') +
     ' from ' + szotar.location.city + ' in ' + szotar.location.state + ', ' + szotar.location.country + '.';
     
     aktdiv = document.querySelector('#mobile');
