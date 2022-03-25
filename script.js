@@ -108,24 +108,22 @@ async function loadData(){
     aktdiv.innerHTML = '<img src="https://flagcdn.com/h24/' + szotar.nat.toLowerCase() + '.png" alt="Flag"></img>';
     
 
-    // start the loading of the data in the correct order
+    // start the loading of the data
     
-    if(!friendsActive){
-        await generatePics();
-        await generateFriends();
-    }
-    else{    
-        await generateFriends();
-        await generatePics();
-    }
+    startPicsGeneration();
+    startFriendsGeneration();
 }
 
-async function showFriends(){
+async function startPicsGeneration(){
+    await generatePics();
+}
+async function startFriendsGeneration(){
+    await generateFriends();
+}
+
+function showFriends(){
     // switching through tabs is only available with buttons which call the corresponding show function so only here should we set the toggle
     friendsActive = true;
-
-    // if the old page is still loading we start the loading of this one aswell so we don't need to wait for the other tab to load till this one starts
-    await generateFriends();
 
     let content = document.querySelector('#content');
     
@@ -141,13 +139,10 @@ async function showFriends(){
         }
     }
 }
-async function showPics(){
+function showPics(){
     // switching through tabs is only available with buttons which call the corresponding show function so only here should we set the toggle
     friendsActive = false;
 
-    // if the old page is still loading we start the loading of this one aswell so we don't need to wait for the other tab to load till this one starts
-    await generatePics();
-    
     let content = document.querySelector('#content');
     
     // we only want to modify the content value if still this tab is loaded
@@ -176,7 +171,6 @@ async function generateFriends(){
         }
         
         let friendNum = getRndInteger(4,35);
-        //let friendNum = 1;
         
         // build up the friendlist's content
         friendsContent = '<div id="friendlist" class="flex-row flex-wrapped-all-center">';
@@ -221,8 +215,6 @@ async function generatePics(){
         }
         
         let picNum = getRndInteger(4,35);
-        //let picNum = 100;
-        
         
         // build up the picturelist's content
         pictureContent = '<div id="picturelist" class="flex-row flex-wrapped-all-center">';
