@@ -44,14 +44,8 @@ function main(){
     
 
     // enable button functionality, they are usable and properly functional while the data is on load
-    let aktdiv = document.querySelector('#photos');
-    aktdiv.innerHTML = '<div>photos</div>';
-    
-    aktdiv = document.querySelector('#friends');
-    aktdiv.innerHTML = '<div>friends</div>';
-    
-    document.querySelector('#photos>div').addEventListener('click', showPics);
-    document.querySelector('#friends>div').addEventListener('click', showFriends);
+    document.querySelector('#photos').addEventListener('click', showPics);
+    document.querySelector('#friends').addEventListener('click', showFriends);
     
     // load
     loadData();

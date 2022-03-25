@@ -101,11 +101,9 @@ nav > div {
     width: 50%;
     text-align: center;
     font-size: large;
-    
-}
-nav > div > div{
     cursor: pointer;
     border-radius: 10px;
+    
 }
 .active{
 
@@ -173,7 +171,7 @@ footer .mail:hover{
 }
 #email>.mail:hover,
 #content .mail:hover,
-nav div>div:hover,
+nav div:hover,
 #refresh:hover{
     color: blue;
     background-color: aqua;
