@@ -78,7 +78,6 @@ async function loadData(){
     aktdiv.innerHTML = '';
 
 
-
     // load the header (profile) data
 
     let szotar = (await olvaso_fetch('https://randomuser.me/api/')).results[0];
@@ -164,7 +163,6 @@ async function showPics(){
     }
 }
 
-
 async function generateFriends(){
 
     // the loading process starts with overwriting this one so only if it isn't modified means we haven't started the loading process yet
@@ -211,7 +209,6 @@ async function generateFriends(){
         }
     }
 }
-
 async function generatePics(){
 
     // the loading process starts with overwriting this one so only if it isn't modified means we haven't started the loading process yet
