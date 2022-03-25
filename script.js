@@ -41,7 +41,6 @@ function setActiveStatus(){
 function main(){
     // set the emphasis for the tab change buttons
     setActiveStatus();
-    
 
     // enable button functionality, they are usable and properly functional while the data is on load
     document.querySelector('#photos').addEventListener('click', showPics);
