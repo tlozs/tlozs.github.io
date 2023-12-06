@@ -1,54 +1,30 @@
-
-// SZIMULÁCIÓHOZ HASZNÁLT VÁLTOZÓK DEKLARÁCIÓJA
-
-let galaxis = new Galaxis("Kistejút")
-let m1 = new Egitest("m1", 100, new Vektor(-97.000436, 24.308753), new Vektor(0.4662036850, 0.4323657300), "#FF0000", "#FF0000", galaxis);
-let m2 = new Egitest("m2", 100, new Vektor(0, 0), new Vektor(-0.93240737, -0.86473146), "#0000FF", "#0000FF", galaxis);
-let m3 = new Egitest("m3", 100, new Vektor(97.000436, -24.308753), new Vektor(0.4662036850, 0.4323657300), "#00FF00", "#00FF00", galaxis);
-
-function inicializalas(){
-    
-}
-
-function szimulacios_lepes(){
-    galaxis.utkozeses_kolcsonhatas();
-    galaxis.gravitacios_kolcsonhatas();
-    galaxis.mozgat();
-}
-
-// --------------------------------- Motorháztető alatt -----------------------------------------------
-
 let globalID;
 let running = false;
-
+let stepMagnitude;
+let stepAngle;
+let polarv;
 
 function update() {
-    szimulacios_lepes();
+    
+    polarv.magnitude += stepMagnitude;
+    polarv.angle += stepAngle;
+    
+    // cartesianv = Vector.add(polarv.toCartesian(), new Vector(350, 150));
+    cartesianv = polarv.toCartesian();
+
+    circle.cx.baseVal.value += cartesianv.x;
+    circle.cy.baseVal.value += cartesianv.y;
+    
     globalID = requestAnimationFrame(update);
 }
 
 startbtn.addEventListener("click", start);
 stopbtn.addEventListener("click", animationStop);
-resetbtn.addEventListener("click", () => galaxis.reset());
-sulypontbtn.addEventListener("click", sulypontReset);
-bolygobtn.addEventListener("click", bolygo_letevese);
 
-vaszon.addEventListener("wheel", nagyit);
-
-
-
-function nagyit(e){
-    const c = 1.1;
-    if (e.deltaY < 0){
-        console.log(vaszon.viewBox);
-        vaszon.setAttribute('viewBox', `${vaszon.viewBox.animVal.x/c} ${vaszon.viewBox.animVal.y/c} ${vaszon.viewBox.animVal.width/c} ${vaszon.viewBox.animVal.height/c}`);
-    } else if (e.deltaY > 0){
-        vaszon.setAttribute('viewBox', `${vaszon.viewBox.animVal.x*c} ${vaszon.viewBox.animVal.y*c} ${vaszon.viewBox.animVal.width*c} ${vaszon.viewBox.animVal.height*c}`);
-    }
-}
-
-function start(){
-    inicializalas();
+function start() {
+    polarv = new PolarVector(0, 0);
+    stepMagnitude = parseFloat(vx.value);
+    stepAngle = parseFloat(vy.value);
     animationStart();
 }
 
