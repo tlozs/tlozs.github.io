@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gravitációs szimuláció</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="galaxis.js" defer></script>
+    <script src="vektor.js" defer></script>
+    <script src="egitest.js" defer></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Gravitációs szimuláció</h1>
+        <div>
+            <button type="button" id="startbtn">START</button>
+            <button type="button" id="stopbtn">STOP</button>
+            <button type="button" id="resetbtn">RESET</button>
+            <button type="button" id="bolygobtn">Bolygót le</button>
+            <button type="button" id="sulypontbtn">Súlypont reset</button>
+        </div>
+    </header>
+
+    <svg width="100%" id="vaszon" viewBox="-350 -175 700 350">
+        <defs>
+            <marker 
+              id='head' 
+              orient="auto" 
+              markerWidth='3' 
+              markerHeight='4' 
+              refX='0.1' 
+              refY='2'
+            >
+              <path d='M0,0 V4 L2,2 Z' fill="gray" />
+            </marker>
+        </defs>
+
+    </svg>
+
+    <div id="kezelopult">
+        <label for="bolygonev">A bolygó neve:</label>
+        <input type="text" step="0.1" id="bolygonev" value="halál">
+        <label for="tomeg">tömeg:</label>
+        <input type="number" step="1" id="tomeg" value="50">
+        <label for="vx">vízszintes irányú sebesség</label>
+        <input type="number" step="0.1" id="vx" value="0.1">
+        <label for="vy">függőleges irányú sebesség</label>
+        <input type="number" step="0.1" id="vy" value="0.1">
+        <label for="px">vízszintes koordináta</label>
+        <input type="number" step="0.1" id="px" value="0.1">
+        <label for="py">függőleges koordináta</label>
+        <input type="number" step="0.1" id="py" value="0.1">
+        <label for="egitest_belszin">kitöltés színe</label>
+        <input type="color" id="egitest_belszin" value="#FFFFFF">
+        <label for="egitest_kulszin">körvonal színe</label>
+        <input type="color" id="egitest_kulszin">
+    </div>
+</body>
+</html>
