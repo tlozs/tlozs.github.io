@@ -1,3 +1,3 @@
-site: https://gaalzsolt.github.io/
+site: https://tlozs.github.io/
 
 Ez egy égi mechanikát szimuláló oldal.
